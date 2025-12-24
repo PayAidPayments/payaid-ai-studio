@@ -1,0 +1,19 @@
+{
+  "name": "@payaid/db",
+  "version": "1.0.0",
+  "description": "PayAid shared Prisma database client",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "prisma generate && tsc",
+    "dev": "prisma generate && tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@prisma/client": "^5.19.0"
+  },
+  "devDependencies": {
+    "prisma": "^5.19.0",
+    "typescript": "^5.5.0"
+  }
+}

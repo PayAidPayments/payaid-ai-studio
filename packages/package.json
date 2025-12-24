@@ -1,0 +1,12 @@
+{
+  "name": "payaid-packages",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": [
+    "@payaid/*"
+  ],
+  "scripts": {
+    "build:all": "npm run build --workspaces",
+    "dev:all": "npm run dev --workspaces"
+  }
+}

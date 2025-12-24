@@ -1,0 +1,15 @@
+{
+  "name": "@payaid/types",
+  "version": "1.0.0",
+  "description": "PayAid shared TypeScript types and interfaces",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  }
+}

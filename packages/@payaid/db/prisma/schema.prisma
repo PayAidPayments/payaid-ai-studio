@@ -1,0 +1,94 @@
+// Core Prisma schema for @payaid/db package
+// Contains only core models: User, Tenant, Subscription, ModuleDefinition
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Core models only - shared across all modules
+model Tenant {
+  id        String  @id @default(cuid())
+  name      String
+  subdomain String? @unique
+  domain    String? @unique
+  plan      String  @default("free")
+  status    String  @default("active")
+  
+  // Module Licensing (Phase 1)
+  licensedModules       String[]  @default([])
+  subscriptionTier      String    @default("free")
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relations
+  users                    User[]
+  subscription          Subscription?
+  
+  @@index([subdomain])
+  @@index([status])
+  @@index([subscriptionTier])
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String
+  password  String
+  role      String   @default("user")
+  tenantId  String
+  tenant    Tenant   @relation("PrimaryTenant", fields: [tenantId], references: [id], onDelete: Cascade)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([tenantId])
+}
+
+model Subscription {
+  id                String   @id @default(cuid())
+  tenantId          String   @unique
+  tenant            Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  modules           String[]
+  tier              String
+  monthlyPrice      Decimal  @default(0)
+  billingCycleStart DateTime
+  billingCycleEnd   DateTime
+  status            String   @default("active")
+  trialEndsAt       DateTime?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([tenantId])
+  @@index([status])
+}
+
+model ModuleDefinition {
+  id                String   @id @default(cuid())
+  moduleId          String   @unique
+  displayName       String
+  description       String
+  icon              String?
+  
+  starterPrice      Decimal
+  professionalPrice Decimal
+  enterprisePrice   Decimal?
+  
+  features          String[]
+  isActive          Boolean  @default(true)
+  
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([moduleId])
+  @@index([isActive])
+}

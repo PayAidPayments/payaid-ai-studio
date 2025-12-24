@@ -1,0 +1,22 @@
+{
+  "name": "@payaid/oauth-client",
+  "version": "1.0.0",
+  "description": "OAuth2 client library for PayAid modules",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@payaid/auth": "workspace:*",
+    "@payaid/types": "workspace:*"
+  },
+  "devDependencies": {
+    "typescript": "^5.5.0"
+  },
+  "peerDependencies": {
+    "next": "^16.0.0"
+  }
+}

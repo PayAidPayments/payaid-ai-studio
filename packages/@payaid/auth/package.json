@@ -1,0 +1,24 @@
+{
+  "name": "@payaid/auth",
+  "version": "1.0.0",
+  "description": "PayAid authentication and authorization utilities",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "jsonwebtoken": "^9.0.2",
+    "bcryptjs": "^2.4.3"
+  },
+  "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.5",
+    "@types/bcryptjs": "^2.4.6",
+    "typescript": "^5.5.0"
+  },
+  "peerDependencies": {
+    "next": "^16.0.0"
+  }
+}

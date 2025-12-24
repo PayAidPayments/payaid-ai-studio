@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  ai-studio:
+    build: .
+    ports:
+      - "3007:3007"
+    environment:
+      - CORE_AUTH_URL=${CORE_AUTH_URL:-http://core:3000}
+      - DATABASE_URL=${DATABASE_URL}
+      - REDIS_URL=${REDIS_URL}
+      - JWT_SECRET=${JWT_SECRET}
+      - OAUTH_CLIENT_ID=ai-studio
+      - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
+      - NEXT_PUBLIC_APP_URL=${NEXT_PUBLIC_APP_URL}
+      - NODE_ENV=production
+    networks:
+      - payaid-network
+    restart: unless-stopped
+
+networks:
+  payaid-network:
+    driver: bridge
