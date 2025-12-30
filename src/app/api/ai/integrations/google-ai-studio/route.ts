@@ -6,7 +6,7 @@ import { prisma } from '@payaid/db'
 export async function DELETE(request: NextRequest) {
   try {
     // Check analytics module license
-    const { tenantId, userId } = await requireAIStudioAccess(request)
+    const { tenantId, userId } = await requireModuleAccess(request, 'ai-studio')
 
     const integration = await prisma.oAuthIntegration.findUnique({
       where: {

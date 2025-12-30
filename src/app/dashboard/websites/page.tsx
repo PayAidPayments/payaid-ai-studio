@@ -133,10 +133,3 @@ export default function WebsitesPage() {
   )
 }
 
-export default function WebsitesPage() {
-  return (
-    <ModuleGate module="ai-studio">
-      <WebsitesPageContent />
-    </ModuleGate>
-  )
-}

@@ -11,10 +11,6 @@ export { Input } from './ui/input'
 export { Table, TableHeader, TableBody, TableRow, TableCell } from './ui/table'
 export { CopyButton } from './ui/copy-button'
 
-// Layout Components
-export { Header } from './layout/header'
-export { Sidebar } from './layout/sidebar'
-
 // Module Components
 export { ModuleGate } from './modules/ModuleGate'
 

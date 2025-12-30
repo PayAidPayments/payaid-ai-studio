@@ -5,7 +5,7 @@ import { requireModuleAccess, handleLicenseError } from '@/lib/middleware/auth'
 export async function GET(request: NextRequest) {
   try {
     // Check analytics module license
-    const { tenantId, userId } = await requireAIStudioAccess(request)
+    const { tenantId, userId } = await requireModuleAccess(request, 'ai-studio')
 
     const clientId = process.env.GOOGLE_CLIENT_ID
     if (!clientId) {

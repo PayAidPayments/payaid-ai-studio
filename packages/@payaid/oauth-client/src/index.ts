@@ -7,6 +7,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { verifyToken, JWTPayload } from '@payaid/auth'
 
+// Re-export types and functions
+export type { JWTPayload }
+export { verifyToken } from '@payaid/auth'
+
 // OAuth2 configuration
 const CORE_AUTH_URL = process.env.CORE_AUTH_URL || 'https://payaid.io'
 const OAUTH_CLIENT_ID = process.env.OAUTH_CLIENT_ID || ''
@@ -158,13 +162,15 @@ export function setRefreshTokenCookie(response: NextResponse, refreshToken: stri
  * Clear token cookie
  */
 export function clearTokenCookie(response: NextResponse): void {
-  response.cookies.delete('payaid_token', {
+  response.cookies.set('payaid_token', '', {
     domain: '.payaid.io',
     path: '/',
+    expires: new Date(0),
   })
-  response.cookies.delete('payaid_refresh_token', {
+  response.cookies.set('payaid_refresh_token', '', {
     domain: '.payaid.io',
     path: '/',
+    expires: new Date(0),
   })
 }
 

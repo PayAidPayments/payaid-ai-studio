@@ -6,6 +6,7 @@
 
 import { NextRequest } from 'next/server'
 import { getTokenFromRequest, verifyToken, JWTPayload } from './index'
+import jwt from 'jsonwebtoken'
 
 // OAuth2 configuration
 const CORE_AUTH_URL = process.env.CORE_AUTH_URL || 'https://payaid.io'
@@ -17,12 +18,13 @@ const OAUTH_CLIENT_SECRET = process.env.OAUTH_CLIENT_SECRET || ''
  */
 export function shouldRefreshToken(token: string): boolean {
   try {
-    const payload = verifyToken(token)
-    if (!payload || !payload.exp) {
+    // Decode token to get exp claim without verification
+    const decoded = jwt.decode(token) as { exp?: number } | null
+    if (!decoded || !decoded.exp) {
       return false
     }
 
-    const expiryTime = payload.exp * 1000 // Convert to milliseconds
+    const expiryTime = decoded.exp * 1000 // Convert to milliseconds
     const now = Date.now()
     const oneHour = 60 * 60 * 1000
 

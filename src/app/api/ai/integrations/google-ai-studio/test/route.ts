@@ -10,7 +10,7 @@ const testApiKeySchema = z.object({
 export async function POST(request: NextRequest) {
   try {
     // Check analytics module license
-    const { tenantId, userId } = await requireAIStudioAccess(request)
+    const { tenantId, userId } = await requireModuleAccess(request, 'ai-studio')
 
     const body = await request.json()
     const validated = testApiKeySchema.parse(body)

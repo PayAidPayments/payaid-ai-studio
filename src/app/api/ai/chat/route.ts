@@ -20,8 +20,8 @@ const chatSchema = z.object({
 // POST /api/ai/chat - Chat with AI assistant
 export async function POST(request: NextRequest) {
   try {
-    // Check Analytics module license (AI features are part of analytics)
-    const { tenantId, userId } = await requireAIStudioAccess(request)
+    // Check AI Studio module license
+    const { tenantId, userId } = await requireModuleAccess(request, 'ai-studio')
 
     const body = await request.json()
     const validated = chatSchema.parse(body)
